@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nolly Arctic OS | Мониторинг Станции</title>
+    <title>Nolly Arctic OS | Инженерный Интерфейс</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cloudflare.com">
 </head>
 <body>
 
-    <!-- БОКОВАЯ ПАНЕЛЬ -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="logo">
-            <i class="fa-solid fa-snowflake"></i>
+            <i class="fa-solid fa-microchip"></i>
             <span>NOLLY<strong>ARCTIC</strong></span>
         </div>
 
@@ -21,151 +21,126 @@
                 <i class="fa-solid fa-house"></i> Главная
             </div>
             <div class="nav-item" onclick="showPage('dashboard')" id="nav-dashboard">
-                <i class="fa-solid fa-gauge-simple-high"></i> Дашборд
+                <i class="fa-solid fa-gauge-high"></i> Дашборд
             </div>
             <div class="nav-item" onclick="showPage('power')" id="nav-power">
                 <i class="fa-solid fa-bolt"></i> Энергосистема
             </div>
             <div class="nav-item" onclick="showPage('water')" id="nav-water">
-                <i class="fa-solid fa-faucet-drip"></i> Водоснабжение
+                <i class="fa-solid fa-droplet"></i> Водоснабжение
             </div>
             <div class="nav-item" onclick="showPage('comms')" id="nav-comms">
-                <i class="fa-solid fa-tower-broadcast"></i> Связь
+                <i class="fa-solid fa-satellite-dish"></i> Связь
             </div>
             <div class="nav-item" onclick="showPage('docs')" id="nav-docs" style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
-                <i class="fa-solid fa-file-shield"></i> Документация
+                <i class="fa-solid fa-book-open-reader"></i> Документация
             </div>
         </nav>
 
-        <div style="margin-top: auto; padding: 1.5rem; background: var(--panel); border-radius: 20px; border: 1px solid var(--border);">
-            <p style="font-size: 0.7rem; color: var(--text-dim); margin-bottom: 5px;">СИСТЕМА: v4.8.2</p>
-            <p style="font-size: 0.75rem; color: var(--accent); font-weight: 700;">● NOLLY CORE ACTIVE</p>
+        <div style="margin-top: auto; padding: 1.5rem; background: var(--glass); border-radius: 20px; border: 1px solid var(--border);">
+            <p style="font-size: 0.7rem; color: var(--text-dim); margin-bottom: 5px;">ЯДРО: NOLLY-CORE 8.0</p>
+            <p style="font-size: 0.75rem; color: var(--accent); font-weight: 700;">● СИСТЕМА СТАБИЛЬНА</p>
         </div>
     </aside>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <!-- MAIN CONTENT -->
     <main class="main-area">
         
-        <!-- СТРАНИЦА: ГЛАВНАЯ -->
+        <!-- ГЛАВНАЯ -->
         <section id="home" class="page-content active">
             <h1>Станция <span>Nolly Arctic</span></h1>
             <p class="description">
-                Nolly Arctic — это высокотехнологичный автономный исследовательский комплекс, расположенный в секторе "Зеро-9". Станция спроектирована для работы в условиях экстремально низких температур до -75°C и полной изоляции. <br><br>
-                Наш комплекс объединяет в себе передовые технологии децентрализованного управления ресурсами, квантовую связь и системы жизнеобеспечения замкнутого цикла. Интерфейс Nolly OS позволяет инженерам контролировать каждый милливатт энергии и каждый литр воды, обеспечивая максимальную безопасность экипажа и сохранность научных данных.
+                Централизованная инженерная среда для управления автономным комплексом. Станция <b>Nolly Arctic</b> расположена в зоне вечной мерзлоты и обеспечивает работу 12 научно-исследовательских модулей. <br><br>
+                Интерфейс <b>Nolly OS</b> предоставляет мгновенный доступ к 60 критическим параметрам системы: от температуры внешних обшивок до частоты квантовых каналов связи. Каждая кнопка ниже — это живой узел телеметрии.
             </p>
             <div style="display: flex; gap: 20px;">
-                <button class="btn-main" onclick="showPage('dashboard')">Открыть панель управления</button>
-                <button class="btn-main" style="background: transparent; color: white; border: 1px solid var(--border);" onclick="showPage('docs')">Ознакомиться с регламентом</button>
+                <button class="btn-main" onclick="showPage('dashboard')">Перейти к Дашборду</button>
+                <button class="btn-main" style="background: transparent; color: white; border: 1px solid var(--border);" onclick="showPage('docs')">Регламент Станции</button>
             </div>
         </section>
 
-        <!-- СТРАНИЦА: ДАШБОРД (10 ПУНКТОВ) -->
+        <!-- ДАШБОРД (10 ВИДЖЕТОВ) -->
         <section id="dashboard" class="page-content">
-            <h2>Дашборд среды</h2>
-            <div class="info-grid">
-                <div class="card">
-                    <div class="card-title">Телеметрия окружения</div>
-                    <div class="data-list" id="diag-list">
-                        <div class="data-item"><span class="data-label">Внешняя темп.</span><span class="data-value">-54.2°C</span></div>
-                        <div class="data-item"><span class="data-label">Скорость ветра</span><span class="data-value">14.8 м/с</span></div>
-                        <div class="data-item"><span class="data-label">Влажность</span><span class="data-value">12%</span></div>
-                        <div class="data-item"><span class="data-label">Давление</span><span class="data-value">1012 hPa</span></div>
-                        <div class="data-item"><span class="data-label">Уровень О2</span><span class="data-value">20.9%</span></div>
-                        <div class="data-item"><span class="data-label">CO2 в модулях</span><span class="data-value">400 ppm</span></div>
-                        <div class="data-item"><span class="data-label">Герметичность</span><span class="data-value">100%</span></div>
-                        <div class="data-item"><span class="data-label">Радиац. фон</span><span class="data-value">0.12 мкЗв/ч</span></div>
-                        <div class="data-item"><span class="data-label">Магнитная буря</span><span class="data-value">Низкая</span></div>
-                        <div class="data-item"><span class="data-label">Статус купола</span><span class="data-value">Активен</span></div>
-                    </div>
-                </div>
+            <h2>Телеметрия Среды</h2>
+            <div class="widget-grid">
+                <div class="widget"><div class="widget-label">Внешняя темп.</div><div class="widget-value">-48.2°C</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Ветер</div><div class="widget-value">12.4 м/с</div><div class="widget-status">СТАБИЛЬНО</div></div>
+                <div class="widget"><div class="widget-label">Влажность</div><div class="widget-value">14%</div><div class="widget-status">СУХО</div></div>
+                <div class="widget"><div class="widget-label">Давление</div><div class="widget-value">1014 hPa</div><div class="widget-status">ОПТИМАЛЬНО</div></div>
+                <div class="widget"><div class="widget-label">O2 Уровень</div><div class="widget-value">21.2%</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">CO2 Фон</div><div class="widget-value">380 ppm</div><div class="widget-status">ЧИСТО</div></div>
+                <div class="widget"><div class="widget-label">Радиация</div><div class="widget-value">0.11 мкЗв</div><div class="widget-status">БЕЗОПАСНО</div></div>
+                <div class="widget"><div class="widget-label">Герметичность</div><div class="widget-value">100%</div><div class="widget-status">ПОЛНАЯ</div></div>
+                <div class="widget"><div class="widget-label">Освещение</div><div class="widget-value">450 Lux</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Шум (dB)</div><div class="widget-value">32 dB</div><div class="widget-status">ТИХО</div></div>
             </div>
         </section>
 
-        <!-- СТРАНИЦА: ЭНЕРГОСИСТЕМА (10 ПУНКТОВ) -->
+        <!-- ЭНЕРГОСИСТЕМА (10 ВИДЖЕТОВ) -->
         <section id="power" class="page-content">
-            <h2>Энергосистема Nolly</h2>
-            <div class="info-grid">
-                <div class="card">
-                    <div class="card-title">Баланс энергии</div>
-                    <div class="data-list">
-                        <div class="data-item"><span class="data-label">Генерация РИТЭГ</span><span class="data-value">6.2 kW</span></div>
-                        <div class="data-item"><span class="data-label">Солнечные панели</span><span class="data-value">0.4 kW</span></div>
-                        <div class="data-item"><span class="data-label">Текущий разряд</span><span class="data-value">3.2 kW</span></div>
-                        <div class="data-item"><span class="data-label">Емкость АКБ</span><span class="data-value">92%</span></div>
-                        <div class="data-item"><span class="data-label">Вольтаж шины</span><span class="data-value">220V / 50Hz</span></div>
-                        <div class="data-item"><span class="data-label">Темп. реактора</span><span class="data-value">340°C</span></div>
-                        <div class="data-item"><span class="data-label">Резерв (ИБП)</span><span class="data-value">48ч</span></div>
-                        <div class="data-item"><span class="data-label">Нагрузка лаб.</span><span class="data-value">1.8 kW</span></div>
-                        <div class="data-item"><span class="data-label">Статус инвертора</span><span class="data-value">Норма</span></div>
-                        <div class="data-item"><span class="data-label">Охлаждение</span><span class="data-value">Стабильно</span></div>
-                    </div>
-                </div>
+            <h2>Энергетические Узлы</h2>
+            <div class="widget-grid">
+                <div class="widget"><div class="widget-label">Генератор A</div><div class="widget-value">3.2 kW</div><div class="widget-status">ONLINE</div></div>
+                <div class="widget"><div class="widget-label">Генератор B</div><div class="widget-value">2.8 kW</div><div class="widget-status">ONLINE</div></div>
+                <div class="widget"><div class="widget-label">АКБ Кластер</div><div class="widget-value">94%</div><div class="widget-status">ЗАРЯЖЕН</div></div>
+                <div class="widget"><div class="widget-label">Вольтаж</div><div class="widget-value">230.1 V</div><div class="widget-status">СТАБИЛЬНО</div></div>
+                <div class="widget"><div class="widget-label">Нагрузка Лаб</div><div class="widget-value">1.4 kW</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Нагрузка Жилой</div><div class="widget-value">0.8 kW</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Частота</div><div class="widget-value">50.02 Hz</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Инвертор</div><div class="widget-value">98% EFF</div><div class="widget-status">АКТИВЕН</div></div>
+                <div class="widget"><div class="widget-label">РИТЭГ Темп.</div><div class="widget-value">342°C</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Охлаждение</div><div class="widget-value">Активно</div><div class="widget-status">OK</div></div>
             </div>
         </section>
 
-        <!-- СТРАНИЦА: ВОДОСНАБЖЕНИЕ (10 ПУНКТОВ) -->
+        <!-- ВОДОСНАБЖЕНИЕ (10 ВИДЖЕТОВ) -->
         <section id="water" class="page-content">
-            <h2>Ресурсы воды и фильтрация</h2>
-            <div class="info-grid">
-                <div class="card">
-                    <div class="card-title">Гидро-мониторинг</div>
-                    <div class="data-list">
-                        <div class="data-item"><span class="data-label">Общий объем</span><span class="data-value">4200 L</span></div>
-                        <div class="data-item"><span class="data-label">Расход / сутки</span><span class="data-value">45 L</span></div>
-                        <div class="data-item"><span class="data-label">Статус фильтров</span><span class="data-value">98%</span></div>
-                        <div class="data-item"><span class="data-label">Минерализация</span><span class="data-value">Оптимально</span></div>
-                        <div class="data-item"><span class="data-label">Уровень Ph</span><span class="data-value">7.2</span></div>
-                        <div class="data-item"><span class="data-label">Рециркуляция</span><span class="data-value">Активна</span></div>
-                        <div class="data-item"><span class="data-label">Темп. бака</span><span class="data-value">+4°C</span></div>
-                        <div class="data-item"><span class="data-label">Насос А</span><span class="data-value">Работает</span></div>
-                        <div class="data-item"><span class="data-label">Насос B</span><span class="data-value">Резерв</span></div>
-                        <div class="data-item"><span class="data-label">Запас льда</span><span class="data-value">12 тонн</span></div>
-                    </div>
-                </div>
+            <h2>Ресурсы и Очистка</h2>
+            <div class="widget-grid">
+                <div class="widget"><div class="widget-label">Бак №1</div><div class="widget-value">2450 L</div><div class="widget-status">ЗАПОЛНЕН</div></div>
+                <div class="widget"><div class="widget-label">Бак №2</div><div class="widget-value">1800 L</div><div class="widget-status">ЗАПОЛНЕН</div></div>
+                <div class="widget"><div class="widget-label">Расход / ч</div><div class="widget-value">4.2 L</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Фильтр ОЗ</div><div class="widget-value">98%</div><div class="widget-status">ЧИСТО</div></div>
+                <div class="widget"><div class="widget-label">Насос Гл</div><div class="widget-value">84% Pwr</div><div class="widget-status">АКТИВЕН</div></div>
+                <div class="widget"><div class="widget-label">Давление H2O</div><div class="widget-value">2.4 Bar</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Ph Уровень</div><div class="widget-value">7.1 Ph</div><div class="widget-status">НОРМА</div></div>
+                <div class="widget"><div class="widget-label">Минералы</div><div class="widget-value">840 mg</div><div class="widget-status">ОПТИМАЛЬНО</div></div>
+                <div class="widget"><div class="widget-label">Рецикл %</div><div class="widget-value">96.4%</div><div class="widget-status">ВЫСОКИЙ</div></div>
+                <div class="widget"><div class="widget-label">Обеззараж.</div><div class="widget-value">Активно</div><div class="widget-status">БЕЗОПАСНО</div></div>
             </div>
         </section>
 
-        <!-- СТРАНИЦА: СВЯЗЬ (10 ПУНКТОВ) -->
+        <!-- СВЯЗЬ (10 ВИДЖЕТОВ) -->
         <section id="comms" class="page-content">
-            <h2>Сетевые протоколы и связь</h2>
-            <div class="info-grid">
-                <div class="card">
-                    <div class="card-title">Телеком-узлы</div>
-                    <div class="data-list">
-                        <div class="data-item"><span class="data-label">Канал (S-Band)</span><span class="data-value">Активен</span></div>
-                        <div class="data-item"><span class="data-label">Сигнал (Ping)</span><span class="data-value">48ms</span></div>
-                        <div class="data-item"><span class="data-label">Потеря пакетов</span><span class="data-value">0.02%</span></div>
-                        <div class="data-item"><span class="data-label">Uplink Speed</span><span class="data-value">450 Mbps</span></div>
-                        <div class="data-item"><span class="data-label">Шифрование</span><span class="data-value">AES-512</span></div>
-                        <div class="data-item"><span class="data-label">Антенна 1</span><span class="data-value">92% Signal</span></div>
-                        <div class="data-item"><span class="data-label">Антенна 2</span><span class="data-value">Standby</span></div>
-                        <div class="data-item"><span class="data-label">Узел Mesh</span><span class="data-value">Ок</span></div>
-                        <div class="data-item"><span class="data-label">Спутник-ID</span><span class="data-value">NL-ARC-1</span></div>
-                        <div class="data-item"><span class="data-label">IP Адрес</span><span class="data-value">10.0.8.254</span></div>
-                    </div>
-                </div>
+            <h2>Телеком-Узлы</h2>
+            <div class="widget-grid">
+                <div class="widget"><div class="widget-label">Пинг (Sat)</div><div class="widget-value">42 ms</div><div class="widget-status">БЫСТРО</div></div>
+                <div class="widget"><div class="widget-label">Uplink</div><div class="widget-value">420 Mb</div><div class="widget-status">СТАБИЛЬНО</div></div>
+                <div class="widget"><div class="widget-label">Downlink</div><div class="widget-value">840 Mb</div><div class="widget-status">СТАБИЛЬНО</div></div>
+                <div class="widget"><div class="widget-label">Антенна A</div><div class="widget-value">94% Sig</div><div class="widget-status">LOCK</div></div>
+                <div class="widget"><div class="widget-label">Антенна B</div><div class="widget-value">88% Sig</div><div class="widget-status">LOCK</div></div>
+                <div class="widget"><div class="widget-label">Квант-ключ</div><div class="widget-value">AES-512</div><div class="widget-status">SECURE</div></div>
+                <div class="widget"><div class="widget-label">Пакеты ERR</div><div class="widget-value">0.01%</div><div class="widget-status">НИЗКО</div></div>
+                <div class="widget"><div class="widget-label">Mesh-Сеть</div><div class="widget-value">12 Узлов</div><div class="widget-status">ОНЛАЙН</div></div>
+                <div class="widget"><div class="widget-label">Радио (VHF)</div><div class="widget-value">Активно</div><div class="widget-status">LISTEN</div></div>
+                <div class="widget"><div class="widget-label">Брандмауэр</div><div class="widget-value">Active</div><div class="widget-status">ЗАЩИТА</div></div>
             </div>
         </section>
 
-        <!-- СТРАНИЦА: ДОКУМЕНТАЦИЯ (10 ПУНКТОВ) -->
+        <!-- ДОКУМЕНТАЦИЯ (10 ВИДЖЕТОВ-ИНСТРУКЦИЙ) -->
         <section id="docs" class="page-content">
-            <h2>Технический регламент Nolly</h2>
-            <div class="info-grid">
-                <div class="card" style="grid-column: 1 / -1;">
-                    <div class="card-title">Кодекс инженера Nolly Arctic</div>
-                    <div class="data-list">
-                        <div class="data-item"><span class="data-label">1. Безопасность</span><span class="data-value">Жизнь экипажа превыше данных.</span></div>
-                        <div class="data-item"><span class="data-label">2. Питание</span><span class="data-value">Запрещено снижать заряд АКБ ниже 20%.</span></div>
-                        <div class="data-item"><span class="data-label">3. Герметичность</span><span class="data-value">Проверка шлюзов каждые 6 часов.</span></div>
-                        <div class="data-item"><span class="data-label">4. Связь</span><span class="data-value">Радиомолчание только при буре 10 баллов.</span></div>
-                        <div class="data-item"><span class="data-label">5. Ресурсы</span><span class="data-value">Водородные фильтры менять по графику.</span></div>
-                        <div class="data-item"><span class="data-label">6. Ремонт</span><span class="data-value">Только сертифицированные детали Nolly.</span></div>
-                        <div class="data-item"><span class="data-label">7. Данные</span><span class="data-value">Бэкап в квантовое хранилище ежечасно.</span></div>
-                        <div class="data-item"><span class="data-label">8. Доступ</span><span class="data-value">Биометрическая сверка при входе в ядро.</span></div>
-                        <div class="data-item"><span class="data-label">9. Обучение</span><span class="data-value">Знание интерфейса OS — обязательно.</span></div>
-                        <div class="data-item"><span class="data-label">10. Экстрим</span><span class="data-value">При -80°C переход в "Спящий режим".</span></div>
-                    </div>
-                </div>
+            <h2>Регламент Nolly</h2>
+            <div class="widget-grid">
+                <div class="widget"><div class="widget-label">Правило 01</div><div class="widget-value">Безопасность</div><div class="widget-status">ПРИОРУТЕТ 1</div></div>
+                <div class="widget"><div class="widget-label">Правило 02</div><div class="widget-value">Энергия</div><div class="widget-status">ПОРОГ 20%</div></div>
+                <div class="widget"><div class="widget-label">Правило 03</div><div class="widget-value">Шлюзы</div><div class="widget-status">ЗАПРЕТ ВХОДА</div></div>
+                <div class="widget"><div class="widget-label">Правило 04</div><div class="widget-value">Связь</div><div class="widget-status">24/7 LOGS</div></div>
+                <div class="widget"><div class="widget-label">Правило 05</div><div class="widget-value">Вода</div><div class="widget-status">ЛИМИТ 50L</div></div>
+                <div class="widget"><div class="widget-label">Правило 06</div><div class="widget-value">Биометрия</div><div class="widget-status">SCAN REQ</div></div>
+                <div class="widget"><div class="widget-label">Правило 07</div><div class="widget-value">Вентиляция</div><div class="widget-status">AUTO CHECK</div></div>
+                <div class="widget"><div class="widget-label">Правило 08</div><div class="widget-value">Архив</div><div class="widget-status">BACKUP 1h</div></div>
+                <div class="widget"><div class="widget-label">Правило 09</div><div class="widget-value">Код доступа</div><div class="widget-status">KEY ROTATE</div></div>
+                <div class="widget"><div class="widget-label">Правило 10</div><div class="widget-value">Эвакуация</div><div class="widget-status">ПРОТОКОЛ "Z"</div></div>
             </div>
         </section>
 
