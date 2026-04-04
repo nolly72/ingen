@@ -1,81 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Элементы датчиков
-    const tempVal = document.getElementById('tempValue');
-    const tempBar = document.getElementById('tempProgress');
-    const cpuVal = document.getElementById('cpuValue');
-    const cpuBar = document.getElementById('cpuProgress');
-    const netVal = document.getElementById('netValue');
-    const netBar = document.getElementById('netProgress');
-    const terminal = document.getElementById('logTerminal');
-
-    // Кнопки
-    const emergencyBtn = document.getElementById('emergencyBtn');
-    const refreshBtn = document.getElementById('refreshBtn');
-
-    // Функция для добавления строк в терминал
-    function addLog(message, type = 'info') {
+    const logList = document.getElementById('log-list');
+    
+    // Универсальная функция логов
+    function addSystemLog(message, status = 'INFO') {
+        if (!logList) return;
         const time = new Date().toLocaleTimeString();
-        const line = document.createElement('div');
-        line.className = 'term-line';
-        
-        let statusSpan = '';
-        if (type === 'warn') statusSpan = 'class="warn"';
-        
-        line.innerHTML = `<span class="time">[${time}]</span> <span ${statusSpan}>${message}</span>`;
-        terminal.appendChild(line);
-        
-        // Автопрокрутка терминала вниз
-        terminal.scrollTop = terminal.scrollHeight;
+        const li = document.createElement('li');
+        li.className = 'log-item';
+        li.innerHTML = `
+            <span class="log-time">[${time}]</span>
+            <span class="log-msg">${message}</span>
+            <span class="log-status" style="color: ${status === 'WARN' ? 'var(--warning)' : 'var(--success)'}">${status}</span>
+        `;
+        logList.prepend(li);
+        if (logList.children.length > 6) logList.lastElementChild.remove();
     }
 
-    // Имитация изменения данных
-    function updateSensors() {
-        // Температура (колебания вокруг 42 градусов)
-        const t = (40 + Math.random() * 5).toFixed(1);
-        tempVal.innerText = t;
-        tempBar.style.width = (t * 1.5) + '%'; // Масштабируем для красоты
-
-        // Нагрузка ЦПУ (прыгает от 10 до 40)
-        const c = (10 + Math.random() * 30).toFixed(1);
-        cpuVal.innerText = c;
-        cpuBar.style.width = c + '%';
-
-        // Трафик
-        const n = Math.floor(700 + Math.random() * 200);
-        netVal.innerText = n;
-        netBar.style.width = (n / 10) + '%';
-    }
-
-    // Запускаем обновление каждые 3 секунды
-    const sensorInterval = setInterval(updateSensors, 3000);
-
-    // Обработка кнопки "Экстренная остановка"
-    emergencyBtn.addEventListener('click', () => {
-        addLog('ВНИМАНИЕ: Инициирована экстренная остановка!', 'warn');
-        emergencyBtn.innerText = 'СИСТЕМА ОСТАНОВЛЕНА';
-        emergencyBtn.style.background = '#da3633';
+    // ЛОГИКА ГЛАВНОЙ СТРАНИЦЫ (index.html)
+    if (document.getElementById('tempVal')) {
+        const actionBtn = document.getElementById('actionBtn');
         
-        // Меняем цвет всех индикаторов на красный
-        document.querySelectorAll('.status-dot').forEach(dot => {
-            dot.style.background = '#da3633';
-            dot.style.boxShadow = '0 0 10px #da3633';
+        function updateMainSensors() {
+            const t = (21 + Math.random() * 2).toFixed(1);
+            document.getElementById('tempVal').innerHTML = `${t}<span class="card-unit">°C</span>`;
+            document.getElementById('tempProgress').style.width = (t * 2) + '%';
+            
+            const p = Math.floor(85 + Math.random() * 5);
+            document.getElementById('powerVal').innerHTML = `${p}<span class="card-unit">%</span>`;
+            document.getElementById('powerProgress').style.width = p + '%';
+        }
+
+        setInterval(updateMainSensors, 4000);
+
+        actionBtn.addEventListener('click', () => {
+            addSystemLog('Запуск полной диагностики узла...', 'INIT');
+            actionBtn.disabled = true;
+            setTimeout(() => {
+                addSystemLog('Все датчики откалиброваны.', 'OK');
+                actionBtn.disabled = false;
+            }, 2000);
         });
+    }
 
-        clearInterval(sensorInterval); // Останавливаем обновление данных
-        addLog('Все процессы Sector-7 заморожены.', 'info');
-    });
+    // ЛОГИКА СТРАНИЦЫ ЭНЕРГИИ (power.html)
+    if (document.getElementById('solarVal')) {
+        const boostBtn = document.getElementById('boostBtn');
 
-    // Кнопка обновления (ручной лог)
-    refreshBtn.addEventListener('click', () => {
-        addLog('Запрос к API: получение актуальных метаданных...');
-        setTimeout(() => {
-            addLog('Данные успешно синхронизированы.', 'info');
-            updateSensors();
-        }, 500);
-    });
+        function updatePowerSensors() {
+            const s = (1 + Math.random() * 0.5).toFixed(2);
+            document.getElementById('solarVal').innerHTML = `${s}<span class="card-unit">kW</span>`;
+            document.getElementById('solarProgress').style.width = (s * 50) + '%';
 
-    // Приветственное сообщение
-    setTimeout(() => {
-        addLog('Система NOLLY OS запущена в штатном режиме.', 'info');
-    }, 1000);
+            const l = (2 + Math.random() * 2).toFixed(1);
+            document.getElementById('loadVal').innerHTML = `${l}<span class="card-unit">kW</span>`;
+            document.getElementById('loadProgress').style.width = (l * 20) + '%';
+        }
+
+        setInterval(updatePowerSensors, 3000);
+
+        boostBtn.addEventListener('click', () => {
+            addSystemLog('Форсирование мощности РИТЭГ...', 'BOOST');
+            boostBtn.style.background = 'var(--warning)';
+            setTimeout(() => {
+                addSystemLog('Стабилизация потока выполнена.', 'DONE');
+                boostBtn.style.background = 'var(--accent)';
+            }, 1500);
+        });
+    }
 });
