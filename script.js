@@ -1,70 +1,69 @@
+/**
+ * Arctic Node OS - Логика управления интерфейсом
+ */
+
+// Основная функция переключения страниц
+function showPage(pageId) {
+    // 1. Скрываем все страницы и убираем активный класс
+    const pages = document.querySelectorAll('.page-content');
+    pages.forEach(page => {
+        page.classList.remove('active');
+    });
+
+    // 2. Деактивируем все пункты меню
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // 3. Активируем нужную страницу
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
+    }
+
+    // 4. Подсвечиваем соответствующий пункт в меню
+    const targetNav = document.getElementById('nav-' + pageId);
+    if (targetNav) {
+        targetNav.classList.add('active');
+    }
+
+    // 5. Прокручиваем контент вверх при переключении
+    document.querySelector('.main-area').scrollTop = 0;
+}
+
+// Имитация динамических данных (чтобы сайт выглядел "живым")
+function simulateLiveDiagnostics() {
+    // Обновляем температуру, если мы на дашборде
+    const tempElement = document.querySelector('#dashboard .card:first-child b');
+    if (tempElement) {
+        const randomTemp = (-40 - Math.random() * 5).toFixed(1);
+        tempElement.innerText = randomTemp + '°C';
+    }
+
+    // Обновляем мощность, если мы в энергосистеме
+    const powerElement = document.querySelector('#power .card:first-child b');
+    if (powerElement) {
+        const randomPower = (5.5 + Math.random() * 0.8).toFixed(1);
+        powerElement.innerText = randomPower + ' kW';
+    }
+}
+
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-    const logList = document.getElementById('log-list');
-    
-    // Универсальная функция логов
-    function addSystemLog(message, status = 'INFO') {
-        if (!logList) return;
-        const time = new Date().toLocaleTimeString();
-        const li = document.createElement('li');
-        li.className = 'log-item';
-        li.innerHTML = `
-            <span class="log-time">[${time}]</span>
-            <span class="log-msg">${message}</span>
-            <span class="log-status" style="color: ${status === 'WARN' ? 'var(--warning)' : 'var(--success)'}">${status}</span>
-        `;
-        logList.prepend(li);
-        if (logList.children.length > 6) logList.lastElementChild.remove();
-    }
+    console.log("Arctic Node OS: System Ready");
 
-    // ЛОГИКА ГЛАВНОЙ СТРАНИЦЫ (index.html)
-    if (document.getElementById('tempVal')) {
-        const actionBtn = document.getElementById('actionBtn');
-        
-        function updateMainSensors() {
-            const t = (21 + Math.random() * 2).toFixed(1);
-            document.getElementById('tempVal').innerHTML = `${t}<span class="card-unit">°C</span>`;
-            document.getElementById('tempProgress').style.width = (t * 2) + '%';
-            
-            const p = Math.floor(85 + Math.random() * 5);
-            document.getElementById('powerVal').innerHTML = `${p}<span class="card-unit">%</span>`;
-            document.getElementById('powerProgress').style.width = p + '%';
-        }
+    // Запускаем обновление данных каждые 5 секунд
+    setInterval(simulateLiveDiagnostics, 5000);
 
-        setInterval(updateMainSensors, 4000);
-
-        actionBtn.addEventListener('click', () => {
-            addSystemLog('Запуск полной диагностики узла...', 'INIT');
-            actionBtn.disabled = true;
-            setTimeout(() => {
-                addSystemLog('Все датчики откалиброваны.', 'OK');
-                actionBtn.disabled = false;
-            }, 2000);
+    // Добавляем эффект мягкого появления для карточек при наведении
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.borderColor = 'var(--accent)';
         });
-    }
-
-    // ЛОГИКА СТРАНИЦЫ ЭНЕРГИИ (power.html)
-    if (document.getElementById('solarVal')) {
-        const boostBtn = document.getElementById('boostBtn');
-
-        function updatePowerSensors() {
-            const s = (1 + Math.random() * 0.5).toFixed(2);
-            document.getElementById('solarVal').innerHTML = `${s}<span class="card-unit">kW</span>`;
-            document.getElementById('solarProgress').style.width = (s * 50) + '%';
-
-            const l = (2 + Math.random() * 2).toFixed(1);
-            document.getElementById('loadVal').innerHTML = `${l}<span class="card-unit">kW</span>`;
-            document.getElementById('loadProgress').style.width = (l * 20) + '%';
-        }
-
-        setInterval(updatePowerSensors, 3000);
-
-        boostBtn.addEventListener('click', () => {
-            addSystemLog('Форсирование мощности РИТЭГ...', 'BOOST');
-            boostBtn.style.background = 'var(--warning)';
-            setTimeout(() => {
-                addSystemLog('Стабилизация потока выполнена.', 'DONE');
-                boostBtn.style.background = 'var(--accent)';
-            }, 1500);
+        card.addEventListener('mouseleave', () => {
+            card.style.borderColor = 'var(--glass-border)';
         });
-    }
+    });
 });
