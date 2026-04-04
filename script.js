@@ -1,69 +1,93 @@
 /**
- * Arctic Node OS - Логика управления интерфейсом
+ * NOLLY ARCTIC OS - ЦЕНТРАЛЬНЫЙ ПРОЦЕССОР УПРАВЛЕНИЯ
  */
 
-// Основная функция переключения страниц
+// 1. Навигация между модулями (SPA Logic)
 function showPage(pageId) {
-    // 1. Скрываем все страницы и убираем активный класс
+    // Скрываем все разделы
     const pages = document.querySelectorAll('.page-content');
-    pages.forEach(page => {
-        page.classList.remove('active');
-    });
+    pages.forEach(page => page.classList.remove('active'));
 
-    // 2. Деактивируем все пункты меню
+    // Снимаем выделение с кнопок меню
     const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.classList.remove('active');
-    });
+    navItems.forEach(item => item.classList.remove('active'));
 
-    // 3. Активируем нужную страницу
+    // Активируем нужный раздел
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
         targetPage.classList.add('active');
+        // Плавная прокрутка наверх при переключении
+        document.querySelector('.main-area').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 4. Подсвечиваем соответствующий пункт в меню
+    // Подсвечиваем активную кнопку
     const targetNav = document.getElementById('nav-' + pageId);
     if (targetNav) {
         targetNav.classList.add('active');
     }
-
-    // 5. Прокручиваем контент вверх при переключении
-    document.querySelector('.main-area').scrollTop = 0;
 }
 
-// Имитация динамических данных (чтобы сайт выглядел "живым")
-function simulateLiveDiagnostics() {
-    // Обновляем температуру, если мы на дашборде
-    const tempElement = document.querySelector('#dashboard .card:first-child b');
-    if (tempElement) {
-        const randomTemp = (-40 - Math.random() * 5).toFixed(1);
-        tempElement.innerText = randomTemp + '°C';
-    }
+// 2. Имитация живых системных данных
+function updateLiveTelemetry() {
+    // Находим все числовые значения в активных карточках
+    const values = document.querySelectorAll('.data-value');
+    
+    values.forEach(el => {
+        const text = el.innerText;
+        
+        // Обновляем только температуры (°C)
+        if (text.includes('°C')) {
+            let current = parseFloat(text);
+            let change = (Math.random() * 0.4 - 0.2); // Колебание +/- 0.2
+            el.innerText = (current + change).toFixed(1) + '°C';
+        }
+        
+        // Обновляем мощность (kW)
+        if (text.includes('kW')) {
+            let current = parseFloat(text);
+            let change = (Math.random() * 0.2 - 0.1); 
+            el.innerText = (current + change).toFixed(1) + ' kW';
+        }
 
-    // Обновляем мощность, если мы в энергосистеме
-    const powerElement = document.querySelector('#power .card:first-child b');
-    if (powerElement) {
-        const randomPower = (5.5 + Math.random() * 0.8).toFixed(1);
-        powerElement.innerText = randomPower + ' kW';
-    }
+        // Обновляем скорость связи (Mbps)
+        if (text.includes('Mbps')) {
+            let current = parseFloat(text);
+            let change = Math.floor(Math.random() * 10 - 5);
+            el.innerText = (current + change) + ' Mbps';
+        }
+
+        // Обновляем заряд АКБ (%)
+        if (text.includes('%') && !text.includes('Signal')) {
+            let current = parseInt(text);
+            // Имитируем мизерный расход или заряд
+            if (Math.random() > 0.8) {
+                el.innerText = (current + (Math.random() > 0.5 ? 1 : -1)) + '%';
+            }
+        }
+    });
 }
 
-// Инициализация при загрузке страницы
+// 3. Инициализация системы
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Arctic Node OS: System Ready");
+    console.log("NOLLY ARCTIC OS: Инициализация ядра...");
+    
+    // Запуск цикла обновления телеметрии (раз в 3 секунды)
+    setInterval(updateLiveTelemetry, 3000);
 
-    // Запускаем обновление данных каждые 5 секунд
-    setInterval(simulateLiveDiagnostics, 5000);
-
-    // Добавляем эффект мягкого появления для карточек при наведении
+    // Добавляем звуковой визуальный отклик (hover-эффект на карточках)
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
-            card.style.borderColor = 'var(--accent)';
+            card.style.boxShadow = '0 0 20px var(--accent-glow)';
         });
         card.addEventListener('mouseleave', () => {
-            card.style.borderColor = 'var(--glass-border)';
+            card.style.boxShadow = 'none';
         });
     });
+
+    // Выводим приветствие в консоль браузера (для тех, кто будет смотреть код)
+    console.log("%c NOLLY ARCTIC v4.8.2 ", "background: #38bdf8; color: #000; font-weight: bold;");
 });
+
+// Глобальный доступ для кнопок внутри HTML
+window.showPage = showPage;
