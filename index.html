@@ -3,94 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NollyDevelop | Professional No-Code Engine</title>
-    <!-- Подключаем иконки FontAwesome для красоты -->
+    <title>NollyDevelop Pro | Ultimate No-Code Builder</title>
+    <!-- Иконки для интерфейса -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- Подключаем стили -->
+    <!-- Google Fonts для современного вида -->
+    <link href="https://googleapis.com" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="app-wrapper">
-        <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
+        <!-- ШАПКА -->
         <header class="top-bar">
             <div class="logo">
-                <i class="fas fa-code-branch"></i> NOLLY<span>DEVELOP</span>
+                <i class="fas fa-layer-group"></i> NOLLY<span>DEVELOP</span>
             </div>
             <div class="top-actions">
-                <button id="clear-canvas" class="btn-secondary">
-                    <i class="fas fa-eraser"></i> Сброс
-                </button>
-                <button id="export-btn" class="btn-primary">
-                    <i class="fas fa-rocket"></i> Скачать готовый сайт
-                </button>
+                <button id="clear-canvas" class="btn-secondary"><i class="fas fa-trash-alt"></i> Сброс</button>
+                <button id="export-btn" class="btn-primary"><i class="fas fa-file-code"></i> Скачать сайт (.html)</button>
             </div>
         </header>
 
         <div class="main-content">
-            <!-- ЛЕВАЯ ПАНЕЛЬ: ВЫБОР БЛОКОВ -->
+            <!-- ПАНЕЛЬ КОМПОНЕНТОВ (10+ вариантов) -->
             <aside class="sidebar side-left">
-                <div class="panel-header">Компоненты</div>
-                <div class="widget-list">
-                    <div class="widget-item" draggable="true" data-type="h1">
-                        <i class="fas fa-heading"></i>
-                        <span>Заголовок H1</span>
+                <div class="panel-header">Библиотека компонентов</div>
+                <div class="widget-scroll-area">
+                    
+                    <p class="group-title">Заголовки</p>
+                    <div class="widget-list">
+                        <div class="widget-item" draggable="true" data-type="h1" data-preset="hero">Главный оффер</div>
+                        <div class="widget-item" draggable="true" data-type="h2" data-preset="section">Заголовок секции</div>
+                        <div class="widget-item" draggable="true" data-type="h3" data-preset="about">О нас</div>
+                        <div class="widget-item" draggable="true" data-type="h3" data-preset="price">Цены</div>
                     </div>
-                    <div class="widget-item" draggable="true" data-type="p">
-                        <i class="fas fa-paragraph"></i>
-                        <span>Текст</span>
+
+                    <p class="group-title">Текст и Описания</p>
+                    <div class="widget-list">
+                        <div class="widget-item" draggable="true" data-type="p" data-preset="desc">Краткое описание</div>
+                        <div class="widget-item" draggable="true" data-type="p" data-preset="mission">Миссия компании</div>
+                        <div class="widget-item" draggable="true" data-type="p" data-preset="review">Отзыв клиента</div>
+                        <div class="widget-item" draggable="true" data-type="p" data-preset="footer">Текст подвала</div>
                     </div>
-                    <div class="widget-item" draggable="true" data-type="button">
-                        <i class="fas fa-hand-pointer"></i>
-                        <span>Кнопка</span>
+
+                    <p class="group-title">Кнопки (CTA)</p>
+                    <div class="widget-list">
+                        <div class="widget-item" draggable="true" data-type="button" data-preset="primary">Главная кнопка</div>
+                        <div class="widget-item" draggable="true" data-type="button" data-preset="outline">Контурная кнопка</div>
+                        <div class="widget-item" draggable="true" data-type="button" data-preset="buy">Купить товар</div>
                     </div>
-                    <div class="widget-item" draggable="true" data-type="image">
-                        <i class="fas fa-image"></i>
-                        <span>Картинка</span>
+
+                    <p class="group-title">Медиа элементы</p>
+                    <div class="widget-list">
+                        <div class="widget-item" draggable="true" data-type="image" data-preset="banner">Баннер (заглушка)</div>
+                        <div class="widget-item" draggable="true" data-type="divider" data-preset="line">Тонкая линия</div>
+                        <div class="widget-item" draggable="true" data-type="divider" data-preset="bold">Жирная линия</div>
                     </div>
-                    <div class="widget-item" draggable="true" data-type="divider">
-                        <i class="fas fa-grip-lines"></i>
-                        <span>Линия</span>
-                    </div>
-                </div>
-                <div class="sidebar-footer">
-                    <p>Перетаскивайте блоки на холст справа →</p>
                 </div>
             </aside>
 
-            <!-- ЦЕНТР: ХОЛСТ (ГДЕ СТРОИМ САЙТ) -->
+            <!-- ЦЕНТРАЛЬНЫЙ ХОЛСТ -->
             <main class="canvas-container">
                 <div id="canvas" class="canvas">
                     <div class="canvas-placeholder">
-                        <i class="fas fa-plus-circle"></i>
-                        <p>Ваш будущий сайт начинается здесь</p>
+                        <i class="fas fa-magic"></i>
+                        <p>Перетащите компоненты слева на холст.</p>
+                        <span style="font-size: 0.8rem; color: #94a3b8;">Кликайте на текст прямо здесь, чтобы редактировать его!</span>
                     </div>
                 </div>
             </main>
 
-            <!-- ПРАВАЯ ПАНЕЛЬ: РЕДАКТИРОВАНИЕ -->
+            <!-- ПРАВАЯ ПАНЕЛЬ: ИНСПЕКТОР СВОЙСТВ -->
             <aside class="sidebar side-right" id="inspector">
                 <div class="panel-header">Свойства элемента</div>
-                
                 <div id="no-selection-msg" class="empty-msg">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <p>Кликните на элемент на холсте, чтобы изменить его</p>
+                    <i class="fas fa-mouse-pointer" style="display:block; margin-bottom:10px;"></i>
+                    Выберите блок для настройки
                 </div>
                 
                 <div id="editor-controls" class="editor-controls" style="display: none;">
                     <div class="control-group">
-                        <label>Содержимое (текст)</label>
-                        <textarea id="prop-text" rows="4"></textarea>
-                    </div>
-
-                    <div class="control-group">
-                        <label>Цвет текста</label>
+                        <label>Цвет текста / Фона</label>
                         <input type="color" id="prop-color">
                     </div>
-
+                    
                     <div class="control-group">
                         <label>Размер шрифта (px)</label>
-                        <input type="number" id="prop-size" min="12" max="120">
+                        <input type="number" id="prop-size" min="12" max="120" value="16">
                     </div>
 
                     <div class="control-group">
@@ -111,14 +110,13 @@
                     <div class="divider-mini"></div>
 
                     <button id="delete-element" class="btn-danger">
-                        <i class="fas fa-trash"></i> Удалить блок
+                        <i class="fas fa-trash"></i> Удалить этот блок
                     </button>
                 </div>
             </aside>
         </div>
     </div>
 
-    <!-- Подключаем скрипт в самом конце -->
     <script src="script.js"></script>
 </body>
 </html>
