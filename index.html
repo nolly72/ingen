@@ -3,135 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nolly Arctic OS | Инженерный комплекс</title>
-    <link rel="stylesheet" href="style.css">
+    <title>NollyDevelop | Professional No-Code Engine</title>
+    <!-- Подключаем иконки FontAwesome для красоты -->
     <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="logo">
-            <i class="fa-solid fa-snowflake"></i>
-            <span>NOLLY<strong>ARCTIC</strong></span>
-        </div>
-        <nav class="nav-menu">
-            <div class="nav-item active" onclick="showPage('home')" id="nav-home">
-                <i class="fa-solid fa-house"></i> <span>Главная</span>
+    <div class="app-wrapper">
+        <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
+        <header class="top-bar">
+            <div class="logo">
+                <i class="fas fa-code-branch"></i> NOLLY<span>DEVELOP</span>
             </div>
-            <div class="nav-item" onclick="showPage('dashboard')" id="nav-dashboard">
-                <i class="fa-solid fa-gauge-high"></i> <span>Дашборд</span>
+            <div class="top-actions">
+                <button id="clear-canvas" class="btn-secondary">
+                    <i class="fas fa-eraser"></i> Сброс
+                </button>
+                <button id="export-btn" class="btn-primary">
+                    <i class="fas fa-rocket"></i> Скачать готовый сайт
+                </button>
             </div>
-            <div class="nav-item" onclick="showPage('power')" id="nav-power">
-                <i class="fa-solid fa-bolt"></i> <span>Энергия</span>
-            </div>
-            <div class="nav-item" onclick="showPage('water')" id="nav-water">
-                <i class="fa-solid fa-droplet"></i> <span>Ресурсы</span>
-            </div>
-            <div class="nav-item" onclick="showPage('comms')" id="nav-comms">
-                <i class="fa-solid fa-satellite-dish"></i> <span>Связь</span>
-            </div>
-            <div class="nav-item" onclick="showPage('docs')" id="nav-docs">
-                <i class="fa-solid fa-file-shield"></i> <span>Регламент</span>
-            </div>
-        </nav>
-    </aside>
+        </header>
 
-    <main class="main-area">
-        <section id="home" class="page-content active">
-            <div class="hero-box">
-                <h1>Станция <span>Nolly Arctic</span></h1>
-                <p class="description">
-                    Централизованная инженерная среда для управления автономным комплексом. 
-                    Станция Nolly Arctic обеспечивает работу 12 научно-исследовательских модулей в условиях экстремальной изоляции.
-                    Интерфейс Nolly OS предоставляет мгновенный доступ к 60 критическим параметрам системы.
-                </p>
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-main" onclick="showPage('dashboard')">Начать мониторинг</button>
-                    <button class="btn-main" style="background: transparent; color: white; border: 1px solid var(--border);" onclick="showPage('docs')">Регламент</button>
+        <div class="main-content">
+            <!-- ЛЕВАЯ ПАНЕЛЬ: ВЫБОР БЛОКОВ -->
+            <aside class="sidebar side-left">
+                <div class="panel-header">Компоненты</div>
+                <div class="widget-list">
+                    <div class="widget-item" draggable="true" data-type="h1">
+                        <i class="fas fa-heading"></i>
+                        <span>Заголовок H1</span>
+                    </div>
+                    <div class="widget-item" draggable="true" data-type="p">
+                        <i class="fas fa-paragraph"></i>
+                        <span>Текст</span>
+                    </div>
+                    <div class="widget-item" draggable="true" data-type="button">
+                        <i class="fas fa-hand-pointer"></i>
+                        <span>Кнопка</span>
+                    </div>
+                    <div class="widget-item" draggable="true" data-type="image">
+                        <i class="fas fa-image"></i>
+                        <span>Картинка</span>
+                    </div>
+                    <div class="widget-item" draggable="true" data-type="divider">
+                        <i class="fas fa-grip-lines"></i>
+                        <span>Линия</span>
+                    </div>
                 </div>
-            </div>
-        </section>
+                <div class="sidebar-footer">
+                    <p>Перетаскивайте блоки на холст справа →</p>
+                </div>
+            </aside>
 
-        <section id="dashboard" class="page-content">
-            <div class="widget-grid">
-                <div class="widget"><div class="widget-label">Внешняя темп.</div><div class="widget-value">-52.4°C</div><div class="widget-status">СТАБИЛЬНО</div></div>
-                <div class="widget"><div class="widget-label">Скорость ветра</div><div class="widget-value">18.2 м/с</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Давление</div><div class="widget-value">1014 hPa</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Уровень O2</div><div class="widget-value">21.2%</div><div class="widget-status">ОПТИМАЛЬНО</div></div>
-                <div class="widget"><div class="widget-label">CO2 Фон</div><div class="widget-value">390 ppm</div><div class="widget-status">ЧИСТО</div></div>
-                <div class="widget"><div class="widget-label">Радиация</div><div class="widget-value">0.12 μSv</div><div class="widget-status">БЕЗОПАСНО</div></div>
-                <div class="widget"><div class="widget-label">Влажность</div><div class="widget-value">12%</div><div class="widget-status">СУХО</div></div>
-                <div class="widget"><div class="widget-label">Герметичность</div><div class="widget-value">100%</div><div class="widget-status">ПОЛНАЯ</div></div>
-                <div class="widget"><div class="widget-label">Свет (Lux)</div><div class="widget-value">420 lx</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Шум</div><div class="widget-value">31 dB</div><div class="widget-status">ТИХО</div></div>
-            </div>
-        </section>
+            <!-- ЦЕНТР: ХОЛСТ (ГДЕ СТРОИМ САЙТ) -->
+            <main class="canvas-container">
+                <div id="canvas" class="canvas">
+                    <div class="canvas-placeholder">
+                        <i class="fas fa-plus-circle"></i>
+                        <p>Ваш будущий сайт начинается здесь</p>
+                    </div>
+                </div>
+            </main>
 
-        <section id="power" class="page-content">
-            <div class="widget-grid">
-                <div class="widget"><div class="widget-label">РИТЭГ A</div><div class="widget-value">3.2 kW</div><div class="widget-status">ACTIVE</div></div>
-                <div class="widget"><div class="widget-label">РИТЭГ B</div><div class="widget-value">2.8 kW</div><div class="widget-status">ACTIVE</div></div>
-                <div class="widget"><div class="widget-label">АКБ Кластер</div><div class="widget-value">92%</div><div class="widget-status">ЗАРЯД</div></div>
-                <div class="widget"><div class="widget-label">Потребление</div><div class="widget-value">1.4 kW</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Шина V</div><div class="widget-value">230.1 V</div><div class="widget-status">STABLE</div></div>
-                <div class="widget"><div class="widget-label">Частота</div><div class="widget-value">50.0 Hz</div><div class="widget-status">STABLE</div></div>
-                <div class="widget"><div class="widget-label">Инвертор</div><div class="widget-value">98% EFF</div><div class="widget-status">ONLINE</div></div>
-                <div class="widget"><div class="widget-label">Temp. Реактор</div><div class="widget-value">340°C</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Охлаждение</div><div class="widget-value">84%</div><div class="widget-status">RUNNING</div></div>
-                <div class="widget"><div class="widget-label">Запас UPS</div><div class="widget-value">48 h</div><div class="widget-status">READY</div></div>
-            </div>
-        </section>
+            <!-- ПРАВАЯ ПАНЕЛЬ: РЕДАКТИРОВАНИЕ -->
+            <aside class="sidebar side-right" id="inspector">
+                <div class="panel-header">Свойства элемента</div>
+                
+                <div id="no-selection-msg" class="empty-msg">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <p>Кликните на элемент на холсте, чтобы изменить его</p>
+                </div>
+                
+                <div id="editor-controls" class="editor-controls" style="display: none;">
+                    <div class="control-group">
+                        <label>Содержимое (текст)</label>
+                        <textarea id="prop-text" rows="4"></textarea>
+                    </div>
 
-        <section id="water" class="page-content">
-            <div class="widget-grid">
-                <div class="widget"><div class="widget-label">Бак №1</div><div class="widget-value">2.4k L</div><div class="widget-status">FULL</div></div>
-                <div class="widget"><div class="widget-label">Расход воды</div><div class="widget-value">4.2 L</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Давление H2O</div><div class="widget-value">2.4 Bar</div><div class="widget-status">STABLE</div></div>
-                <div class="widget"><div class="widget-label">Ph Уровень</div><div class="widget-value">7.1 Ph</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Минералы</div><div class="widget-value">840 mg</div><div class="widget-status">НОРМА</div></div>
-                <div class="widget"><div class="widget-label">Фильтрация</div><div class="widget-value">98%</div><div class="widget-status">ЧИСТО</div></div>
-                <div class="widget"><div class="widget-label">Насос Гл.</div><div class="widget-value">ON</div><div class="widget-status">ACTIVE</div></div>
-                <div class="widget"><div class="widget-label">Подогрев</div><div class="widget-value">+4°C</div><div class="widget-status">SAFE</div></div>
-                <div class="widget"><div class="widget-label">Бак №2</div><div class="widget-value">1.8k L</div><div class="widget-status">80%</div></div>
-                <div class="widget"><div class="widget-label">Озонатор</div><div class="widget-value">UV-ON</div><div class="widget-status">ACTIVE</div></div>
-            </div>
-        </section>
+                    <div class="control-group">
+                        <label>Цвет текста</label>
+                        <input type="color" id="prop-color">
+                    </div>
 
-        <section id="comms" class="page-content">
-            <div class="widget-grid">
-                <div class="widget"><div class="widget-label">Sat-Ping</div><div class="widget-value">42 ms</div><div class="widget-status">FAST</div></div>
-                <div class="widget"><div class="widget-label">Uplink</div><div class="widget-value">420 Mb</div><div class="widget-status">STABLE</div></div>
-                <div class="widget"><div class="widget-label">Downlink</div><div class="widget-value">840 Mb</div><div class="widget-status">STABLE</div></div>
-                <div class="widget"><div class="widget-label">Антенна A</div><div class="widget-value">94%</div><div class="widget-status">LOCK</div></div>
-                <div class="widget"><div class="widget-label">Антенна B</div><div class="widget-value">88%</div><div class="widget-status">LOCK</div></div>
-                <div class="widget"><div class="widget-label">Шифрование</div><div class="widget-value">AES-512</div><div class="widget-status">SECURE</div></div>
-                <div class="widget"><div class="widget-label">Packet Loss</div><div class="widget-value">0.01%</div><div class="widget-status">НИЗКО</div></div>
-                <div class="widget"><div class="widget-label">Узлы Mesh</div><div class="widget-value">12</div><div class="widget-status">ONLINE</div></div>
-                <div class="widget"><div class="widget-label">Радио</div><div class="widget-value">RX/TX</div><div class="widget-status">ACTIVE</div></div>
-                <div class="widget"><div class="widget-label">Firewall</div><div class="widget-value">ON</div><div class="widget-status">SAFE</div></div>
-            </div>
-        </section>
+                    <div class="control-group">
+                        <label>Размер шрифта (px)</label>
+                        <input type="number" id="prop-size" min="12" max="120">
+                    </div>
 
-        <section id="docs" class="page-content">
-            <div class="widget-grid">
-                <div class="widget"><div class="widget-label">Правило 01</div><div class="widget-value">Контроль</div><div class="widget-status">Prio 1</div></div>
-                <div class="widget"><div class="widget-label">Правило 02</div><div class="widget-value">Энергия</div><div class="widget-status">Limit 20%</div></div>
-                <div class="widget"><div class="widget-label">Правило 03</div><div class="widget-value">Шлюзы</div><div class="widget-status">Locked</div></div>
-                <div class="widget"><div class="widget-label">Правило 04</div><div class="widget-value">Связь</div><div class="widget-status">24/7 Logs</div></div>
-                <div class="widget"><div class="widget-label">Правило 05</div><div class="widget-value">Вода</div><div class="widget-status">50L Day</div></div>
-                <div class="widget"><div class="widget-label">Правило 06</div><div class="widget-value">Биометрия</div><div class="widget-status">Scan 2h</div></div>
-                <div class="widget"><div class="widget-label">Правило 07</div><div class="widget-value">Фильтры</div><div class="widget-status">Clean</div></div>
-                <div class="widget"><div class="widget-label">Правило 08</div><div class="widget-value">Бэкап</div><div class="widget-status">Cloud</div></div>
-                <div class="widget"><div class="widget-label">Правило 09</div><div class="widget-value">Доступ</div><div class="widget-status">Secure</div></div>
-                <div class="widget"><div class="widget-label">Правило 10</div><div class="widget-value">План Z</div><div class="widget-status">Ready</div></div>
-            </div>
-        </section>
-    </main>
+                    <div class="control-group">
+                        <label>Выравнивание</label>
+                        <div class="align-buttons">
+                            <button class="align-btn" data-align="left"><i class="fas fa-align-left"></i></button>
+                            <button class="align-btn" data-align="center"><i class="fas fa-align-center"></i></button>
+                            <button class="align-btn" data-align="right"><i class="fas fa-align-right"></i></button>
+                        </div>
+                    </div>
 
-    <div class="fab" onclick="alert('Системный отчет сформирован и отправлен в архив.')">
-        <i class="fa-solid fa-plus"></i>
+                    <div class="control-group">
+                        <label>Отступ сверху (px)</label>
+                        <input type="range" id="prop-margin" min="0" max="150" value="0">
+                        <span id="margin-val">0px</span>
+                    </div>
+
+                    <div class="divider-mini"></div>
+
+                    <button id="delete-element" class="btn-danger">
+                        <i class="fas fa-trash"></i> Удалить блок
+                    </button>
+                </div>
+            </aside>
+        </div>
     </div>
 
+    <!-- Подключаем скрипт в самом конце -->
     <script src="script.js"></script>
 </body>
 </html>
