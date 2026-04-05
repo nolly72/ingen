@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd nexus-crm && npm run build",
-  "installCommand": "cd nexus-crm && npm install",
-  "framework": "nextjs"
-}
